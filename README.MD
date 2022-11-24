@@ -1,19 +1,19 @@
-## xlsReader
+## xls
 
-Библиотека для чтения xls файлов / Golang read xls library
+Golang read xls library
 
-## Установка / Installation
+## Installation
 
 `$ go get github.com/f2xb/xls`
 
-## Использование / Using
+## Using
 
 ```go
 package main
 
 import (
 	"fmt"
-	"github.com/f2xb/xls/xls"
+	"github.com/f2xb/xls"
 	"log"
 )
 
@@ -24,12 +24,7 @@ func main() {
 	if err!=nil {
 		log.Panic(err.Error())
 	}
-
-	// Кол-во листов в книге
-	// Number of sheets in the workbook
-	//
-	// for i := 0; i <= workbook.GetNumberSheets()-1; i++ {}
-
+	
 	fmt.Println(workbook.GetNumberSheets())
 
 	sheet, err := workbook.GetSheet(0)
@@ -37,31 +32,26 @@ func main() {
 	if err!=nil {
 		log.Panic(err.Error())
 	}
-
-	// Имя листа
+	
 	// Print sheet name
 	println(sheet.GetName())
-
-	// Вывести кол-во строк в листе
+	
 	// Print the number of rows in the sheet
 	println(sheet.GetNumberRows())
 
 	for i := 0; i <= sheet.GetNumberRows(); i++ {
 		if row, err := sheet.GetRow(i); err == nil {
 			if cell, err := row.GetCol(1); err == nil {
-
-				// Значение ячейки, тип строка
+				
 				// Cell value, string type
 				fmt.Println(cell.GetString())
 
 				//fmt.Println(cell.GetInt64())
 				//fmt.Println(cell.GetFloat64())
 
-				// Тип ячейки (записи)
 				// Cell type (records)
 				fmt.Println(cell.GetType())
 
-				// Получение отформатированной строки, например для ячеек с датой или проценты
 				// Receiving a formatted string, for example, for cells with a date or a percentage
 				xfIndex:=cell.GetXFIndex()
 				formatIndex:=workbook.GetXFbyIndex(xfIndex)
@@ -74,4 +64,3 @@ func main() {
 	}
 }
 ```
- 
